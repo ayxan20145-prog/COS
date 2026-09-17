@@ -1,8 +1,8 @@
 #include "vga.h"
 
-char *vga = (char *)0xb8000;
-int row = 0;
-int column = 0;
+uint8_t *vga = (uint8_t *)0xb8000;
+uint8_t row = 0;
+uint8_t column = 0;
 
 void print_byte(char byte) {
   if(byte == '\n') {
