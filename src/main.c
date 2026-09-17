@@ -21,9 +21,15 @@ void print(char byte) {
 
   column++;
 }
+void clear(void) {
+  for(int i = 0; i < 2000; i++) {
+    vga[i * 2] = ' ';
+    vga[i * 2 + 1] = 0x0f;
+  }
+}
 void kernel_main(void) {
+  clear();
   print('h');
-  print('\n');
   print('i');
 
   while(1) {}
