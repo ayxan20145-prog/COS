@@ -1,3 +1,7 @@
+*.iso
+iso/
+build/
+
 # Prerequisites
 *.d
 

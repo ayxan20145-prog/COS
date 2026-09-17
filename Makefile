@@ -8,11 +8,12 @@ LDFLAGS := -T linker.ld -ffreestanding -O2 -nostdlib
 
 SRCDIR  := src
 OBJDIR  := build
+
 SRC_C   := $(shell find $(SRCDIR) -name '*.c')
-SRC_ASM := $(shell find $(SRCDIR) -name '*.asm')
+SRC_S   := $(shell find $(SRCDIR) -name '*.s')
 
 OBJS    := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC_C)) \
-           $(patsubst $(SRCDIR)/%.asm,$(OBJDIR)/%.o,$(SRC_ASM))
+           $(patsubst $(SRCDIR)/%.s,$(OBJDIR)/%.o,$(SRC_S))
 
 DEPS    := $(OBJS:.o=.d)
 
@@ -26,7 +27,7 @@ all: $(KERNEL)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.asm | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.s | $(OBJDIR)
 	mkdir -p $(dir $@)
 	$(AS) $(ASFLAGS) -c $< -o $@
 
@@ -41,6 +42,7 @@ iso: $(KERNEL)
 	mkdir -p iso/boot/grub
 	cp $(KERNEL) iso/boot/COS
 	cp grub.cfg iso/boot/grub/grub.cfg
+	rm $(KERNEL)
 	grub-mkrescue -o $(ISO) iso
 
 clean:
