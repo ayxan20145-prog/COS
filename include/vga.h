@@ -8,5 +8,6 @@ void print_byte(char byte);
 void print_string(char str[]);
 void clear(void);
 void update_cursor(uint8_t column, uint8_t row);
+void reset_cursor(void);
 
 #endif

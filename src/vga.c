@@ -47,9 +47,7 @@ void clear(void) {
     vga[i * 2 + 1] = 0x0f;
   }
 
-  column = 0;
-  row = 0;
-  update_cursor(column, row);
+  reset_cursor();
 }
 void update_cursor(uint8_t column, uint8_t row) {
   int position = row * 80 + column;
@@ -58,4 +56,9 @@ void update_cursor(uint8_t column, uint8_t row) {
   outb(0x3d5, (uint8_t)(position & 0xff));
   outb(0x3d4, 0x0e);
   outb(0x3d5, (uint8_t)(position >> 8) & 0xff);
+}
+void reset_cursor(void) {
+  row = 0;
+  column = 0;
+  update_cursor(0, 0);
 }
