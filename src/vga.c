@@ -11,6 +11,17 @@ void print_byte(char byte) {
     return;
   }
 
+  if (byte == '\b') {
+    if (column > 0) {
+      column--;
+      print_byte(' ');
+      column--;
+      update_cursor(column, row);
+      return;
+    }
+    return;
+  }
+
   if(column >= 80) {
     column = 0;
     row++;
